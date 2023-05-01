@@ -1,0 +1,6 @@
+[submodule "vendor/Maximilian"]
+	path = vendor/Maximilian
+	url = https://github.com/micknoise/Maximilian
+[submodule "vendor/imgui"]
+	path = vendor/imgui
+	url = https://github.com/ocornut/imgui

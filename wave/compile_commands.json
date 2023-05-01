@@ -1,0 +1,8 @@
+[
+  {
+    "directory": "/home/miampf/projects/wave/build",
+    "command": "ccache c++ -Iwave.p -I. -I.. -I../vendor/imgui -I../vendor/Maximilian -fdiagnostics-color=always -D_FILE_OFFSET_BITS=64 -Wall -Winvalid-pch -O0 -g -MD -MQ wave.p/wave_main.cpp.o -MF wave.p/wave_main.cpp.o.d -o wave.p/wave_main.cpp.o -c ../wave/main.cpp",
+    "file": "../wave/main.cpp",
+    "output": "wave.p/wave_main.cpp.o"
+  }
+]
