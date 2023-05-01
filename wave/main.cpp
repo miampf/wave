@@ -1,7 +1,9 @@
-#include <stdio.h> 
+#include <stdio.h>
+#include <app/app.hpp>
 
 int main(int argc, char **argv) {
-  printf("Hello world!");
+  Wave::App a;
+  a.print();
 
   return 0;
 }

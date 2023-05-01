@@ -1,2 +1,5 @@
 build/
 .ccls-cache/
+compile_commands.json
+# just a file that made it easier to lint locally
+cpplint-cmd.sh 
