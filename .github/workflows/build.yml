@@ -11,5 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: sudo apt-get install python3 python3-pip python3-setuptools python3-wheel ninja-build
+      - run: pip3 install meson
       - run: meson setup build
       - run: ninja -C build
