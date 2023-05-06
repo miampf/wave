@@ -5,7 +5,7 @@ namespace Wave {
    public:
       App();
 
-      void print();
+      void init();
   };
 }
 

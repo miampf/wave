@@ -1,12 +1,12 @@
 #include <iostream>
+#include <Maximilian/src/maximilian.h>
 
 #include "app.hpp"
 
 namespace Wave {
   App::App() {}
 
-  void App::print() {
-    printf("works");
+  void init() {
   }
 }
 
