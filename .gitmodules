@@ -7,3 +7,6 @@
 [submodule "vendor/rtaudio"]
 	path = vendor/rtaudio
 	url = https://github.com/thestk/rtaudio
+[submodule "vendor/spdlog"]
+	path = vendor/spdlog
+	url = https://github.com/gabime/spdlog
