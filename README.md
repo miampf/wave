@@ -4,7 +4,14 @@ A simple synthesizer for game audio. This is mainly developed for educational pu
 
 ## Compiling from source
 
-To compile from source, you need [meson](https://mesonbuild.com/) and the [ninja build system](https://ninja-build.org/) installed. Once you got that, run
+To compile from source, you need [meson](https://mesonbuild.com/) and the [ninja build system](https://ninja-build.org/) installed.
+Furthermore, you need to install [spdlog](https://github.com/gabime/spdlog), [rtaudio](https://github.com/thestk/rtaudio) and [imgui](https://github.com/ocornut/imgui). You can do that in an arch-based linux distribution by running:
+
+```bash
+yay -S spdlog-git rtaudio-git imgui
+```
+
+Once you got that, run
 
 ```bash
 meson setup build

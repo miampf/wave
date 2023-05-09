@@ -1,12 +1,3 @@
 [submodule "vendor/Maximilian"]
 	path = vendor/Maximilian
 	url = https://github.com/micknoise/Maximilian
-[submodule "vendor/imgui"]
-	path = vendor/imgui
-	url = https://github.com/ocornut/imgui
-[submodule "vendor/rtaudio"]
-	path = vendor/rtaudio
-	url = https://github.com/thestk/rtaudio
-[submodule "vendor/spdlog"]
-	path = vendor/spdlog
-	url = https://github.com/gabime/spdlog
