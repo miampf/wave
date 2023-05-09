@@ -13,14 +13,12 @@ namespace Wave {
 
     spdlog::info("Querying devices");
 
-    // Determine the number of devices available
-    unsigned int devices = audio.getDeviceCount();
-    // Scan through devices for various capabilities
-    RtAudio::DeviceInfo info;
-    for ( unsigned int i=0; i<devices; i++ ) {
-      info = audio.getDeviceInfo( i );
-      
-      spdlog::info("Found Device %s", info.name);
+    std::vector<unsigned int> device_ids = audio.getDeviceIds();
+
+    for (unsigned int i = 0; i < device_ids.size(); i++) {
+      RtAudio::DeviceInfo info = audio.getDeviceInfo(device_ids[i]);
+
+      spdlog::info("Found device #{}: {}", i, info.name);
     }
 
     return AudioErrors::InitSuccess;
