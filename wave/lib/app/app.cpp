@@ -1,17 +1,26 @@
 #include <spdlog/spdlog.h>
-#include "../audio/audio.hpp"
+#include <iostream>
 
+#include "../audio/audio.hpp"
 #include "app.hpp"
 
 namespace Wave {
   App::App() {}
 
-  void App::init() {
+  int App::init() {
     spdlog::info("Initializing App");
 
     AudioInterface audio;
 
-    audio.init();
+    int err = audio.init();
+    if (err != AudioErrors::AudioInitSuccess) {
+      spdlog::error("Failed to initialize audio");
+      return AppErrors::AppInitFailure;
+    }
+
+    char input;
+    spdlog::info("Playing ... press <enter> to quit.");
+    std::cin.get( input );
   }
 }
 
