@@ -27,14 +27,13 @@ int sinus_wave(
   double* buffer = static_cast<double*>(out_buffer);
   unsigned int sample_rate = data->sample_rate;
 
-  for (unsigned int i = 0; i < data->n_channels; i++) {
-    for (unsigned int j = 0; j < n_buffer_frames; j++) {
+  for (unsigned int i = 0; i < n_buffer_frames; i++) {
+    for (unsigned int j = 0; j < data->n_channels; j++) {
       double sine = sin(N * 2 * M_PI * freq / sample_rate);
       *buffer++ = sine;
     }
+    N++;
   }
-
-  N++;
 
   return 0;
 }
