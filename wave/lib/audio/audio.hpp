@@ -13,7 +13,6 @@ namespace Wave {
   class AudioInterface {
     private:
       RtAudio* audio;
-      std::vector<unsigned int> device_ids;
       
     public:
       AudioInterface();

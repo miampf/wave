@@ -18,9 +18,7 @@ namespace Wave {
       return AppErrors::AppInitFailure;
     }
 
-    char input;
-    spdlog::info("Playing ... press <enter> to quit.");
-    std::cin.get( input );
+    return AppErrors::AppInitSuccess;
   }
 }
 

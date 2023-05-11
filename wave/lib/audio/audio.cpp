@@ -4,29 +4,37 @@
 
 #include "audio.hpp"
 
+int N = 0;
+
+typedef struct {
+  unsigned int sample_rate;
+  unsigned int n_channels;
+} CallbackData;
+
 int sinus_wave(
-    void *out_buffer,
-    void *in_buffer,
+    void* out_buffer,
+    void* in_buffer,
     unsigned int n_buffer_frames,
     double stream_time,
     RtAudioStreamStatus status,
-    void *user_data) {
+    void* user_data) {
   if (status) {
     spdlog::error("Stream underflow detected");
   }
-
+  CallbackData* data = static_cast<CallbackData*>(user_data);
   double freq = 440;
 
-  double* buffer = (double*)out_buffer;
-  float* data = (float*) user_data;
-  float timec = data[0];
-  int sample_rate = 44100;
+  double* buffer = static_cast<double*>(out_buffer);
+  unsigned int sample_rate = data->sample_rate;
 
-  for (int i = 0; i < n_buffer_frames; i++) {
-    double sine = sin(2 * M_PI * freq * (timec / sample_rate));
-    buffer[i] = sine;
-    timec++;
+  for (unsigned int i = 0; i < data->n_channels; i++) {
+    for (unsigned int j = 0; j < n_buffer_frames; j++) {
+      double sine = sin(N * 2 * M_PI * freq / sample_rate);
+      *buffer++ = sine;
+    }
   }
+
+  N++;
 
   return 0;
 }
@@ -35,9 +43,11 @@ int sinus_wave(
 namespace Wave {
   AudioInterface::AudioInterface() {}
   AudioInterface::~AudioInterface() {
-    int err = this->audio->stopStream();
-    if (err != RTAUDIO_NO_ERROR) {
-      spdlog::error("Error while stopping audio stream: {}", this->audio->getErrorText());
+    try {
+      this->audio->stopStream();
+    } catch (RtAudioError &e) {
+      spdlog::error("Error while stopping audio stream");
+      e.printMessage();
     }
 
     if (this->audio->isStreamOpen()) this->audio->closeStream();
@@ -54,11 +64,11 @@ namespace Wave {
       spdlog::error("No audio devices found");
       return AudioErrors::AudioInitFailure;
     }
+    
+    unsigned int device_count = this->audio->getDeviceCount();
 
-    this->device_ids = this->audio->getDeviceIds();
-
-    for (unsigned int i = 0; i < this->device_ids.size(); i++) {
-      RtAudio::DeviceInfo info = this->audio->getDeviceInfo(this->device_ids[i]);
+    for (unsigned int i = 0; i < device_count; i++) {
+      RtAudio::DeviceInfo info = this->audio->getDeviceInfo(i);
 
       spdlog::info("Found device #{}: {}", i, info.name);
     }
@@ -72,26 +82,31 @@ namespace Wave {
     parameters.firstChannel = 0;
     unsigned int sample_rate = 44100;
     unsigned int buffer_frames = 128;
-    float timec = 0;
 
-    float user_data[1] = {timec};
+    CallbackData data = CallbackData{sample_rate, parameters.nChannels};
 
     spdlog::info("Opening stream to device");
 
-    int err = this->audio->openStream(
-        &parameters,
-        nullptr,
-        RTAUDIO_FLOAT64,
-        sample_rate,
-        &buffer_frames,
-        &sinus_wave,
-        (void *)&user_data);
-    this->audio->startStream();
+    void* data_ptr = static_cast<void*>(&data);
 
-    if (err != RTAUDIO_NO_ERROR) {
-      spdlog::error("Error while opening stream: {}", this->audio->getErrorText());
+    try {
+      this->audio->openStream(
+          &parameters,
+          nullptr,
+          RTAUDIO_FLOAT64,
+          sample_rate,
+          &buffer_frames,
+          &sinus_wave,
+          data_ptr);
+      this->audio->startStream();
+    } catch (RtAudioError &e) {
+      spdlog::error("Error while opening stream");
+      e.printMessage();
       return AudioErrors::AudioInitFailure;
     }
+
+    char in;
+    std::cin.get(in);
 
     return AudioErrors::AudioInitSuccess;
   }
