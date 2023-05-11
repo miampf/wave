@@ -63,7 +63,7 @@ namespace Wave {
       spdlog::error("No audio devices found");
       return AudioErrors::AudioInitFailure;
     }
-    
+
     unsigned int device_count = this->audio->getDeviceCount();
 
     for (unsigned int i = 0; i < device_count; i++) {
@@ -73,7 +73,8 @@ namespace Wave {
     }
 
     unsigned int default_device_id = this->audio->getDefaultOutputDevice();
-    spdlog::info("Using device \"{}\"", this->audio->getDeviceInfo(default_device_id).name);
+    RtAudio::DeviceInfo info = this->audio->getDeviceInfo(default_device_id);
+    spdlog::info("Using device \"{}\"", info.name);
 
     RtAudio::StreamParameters parameters;
     parameters.deviceId = default_device_id;
@@ -109,4 +110,4 @@ namespace Wave {
 
     return AudioErrors::AudioInitSuccess;
   }
-}
+}  // namespace Wave

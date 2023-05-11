@@ -20,5 +20,5 @@ namespace Wave {
 
     return AppErrors::AppInitSuccess;
   }
-}
+}  // namespace Wave
 

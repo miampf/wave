@@ -13,5 +13,5 @@ namespace Wave {
 
       int init();
   };
-}
+}  // namespace Wave
 

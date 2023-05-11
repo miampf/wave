@@ -11,13 +11,13 @@ namespace Wave {
   };
 
   class AudioInterface {
-    private:
+   private:
       RtAudio* audio;
-      
-    public:
+
+   public:
       AudioInterface();
       ~AudioInterface();
 
       int init();
   };
-}
+}  // namespace Wave
