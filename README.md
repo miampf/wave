@@ -8,7 +8,7 @@ To compile from source, you need [meson](https://mesonbuild.com/) and the [ninja
 Furthermore, you need to install [spdlog](https://github.com/gabime/spdlog), [rtaudio](https://github.com/thestk/rtaudio) and [imgui](https://github.com/ocornut/imgui). You can do that in an arch-based linux distribution by running:
 
 ```bash
-yay -S spdlog-git rtaudio-git imgui
+yay -S spdlog rtaudio imgui
 ```
 
 Once you got that, run
