@@ -1,9 +1,12 @@
-#include <stdio.h>
-#include <app/app.hpp>
+#include "lib/app/app.hpp"
 
 int main(int argc, char **argv) {
   Wave::App a;
-  a.print();
+  int err = a.init();
+
+  if (err != Wave::AppErrors::AppInitSuccess) {
+    return -1;
+  }
 
   return 0;
 }

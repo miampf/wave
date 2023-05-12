@@ -1,11 +1,17 @@
 #pragma once
 
 namespace Wave {
+  enum AppErrors {
+    AppInitSuccess,
+
+    AppInitFailure
+  };
+
   class App {
    public:
       App();
 
-      void print();
+      int init();
   };
-}
+}  // namespace Wave
 
