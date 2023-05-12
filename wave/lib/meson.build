@@ -8,4 +8,4 @@ lib = library('wavelib', [
   'app/app.hpp',
   'audio/audio.cpp',
   'audio/audio.hpp'
-  ], include_directories : [vendor, inc_lib], dependencies : [rtaudio, spdlog])
+  ], include_directories : inc_lib, dependencies : [rtaudio, spdlog])
