@@ -23,4 +23,4 @@ to prepare your build files and
 ninja -C build/
 ```
 
-to compile everything. If that succeeds, you should have your binary as `build/wave`.
+to compile everything. If that succeeds, you should have your binary as `build/wave-bin`.
